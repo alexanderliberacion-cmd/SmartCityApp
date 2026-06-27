@@ -1,5 +1,7 @@
 package com.smartcity.main;
 
+import java.util.InputMismatchException;
+import java.util.MissingFormatArgumentException;
 import java.util.Scanner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -124,7 +126,7 @@ public class SmartCityApp {
             PreparedStatement insertPstmt = connection.prepareStatement(insertQuery);
             insertPstmt.setString(1, username);
             insertPstmt.setString(2, password);
-            insertPstmt.setString(3, "USER"); // Default role for new users
+            insertPstmt.setString(3, "ADMIN"); // Default role for new users
 
             // Execute insert
             int rowsAffected = insertPstmt.executeUpdate();
@@ -537,8 +539,16 @@ public class SmartCityApp {
 
         // Get place ID
         System.out.print("Enter place ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine(); // Clear newline from input buffer
+        int id ;
+        try{
+            id = scanner.nextInt();
+            scanner.nextLine();
+        }catch (InputMismatchException e){
+            System.out.println("❌ Invalid ID. Please enter a number.");
+            scanner.nextLine(); // Clear newline from input buffer
+            return;
+        }
+
 
         // Get place name
         System.out.print("Enter place name: ");
@@ -612,8 +622,15 @@ public class SmartCityApp {
 		System.out.println("\n--- Update Place ---");
 
 		System.out.print("Enter place ID to update: ");
-		int placeId = scanner.nextInt();
-		scanner.nextLine();
+		int placeId ;
+        try {
+            placeId =scanner.nextInt();
+            scanner.nextLine();
+        }catch (InputMismatchException e){
+            System.out.println("❌ Invalid ID. Please enter a number.");
+            scanner.nextLine();
+            return;
+        }
 
 		String selectQuery = "SELECT * FROM places WHERE id = ?";
 		String updateQuery = "UPDATE places SET name = ?, category = ?, location = ?, description = ? WHERE id = ?";
@@ -717,8 +734,15 @@ public class SmartCityApp {
 
         // Ask admin for place ID to delete
         System.out.print("Enter place ID to delete: ");
-        int placeId = scanner.nextInt();
-        scanner.nextLine(); // Clear newline from input buffer
+        int placeId;
+        try {
+            placeId = scanner.nextInt();
+            scanner.nextLine();
+        }catch (InputMismatchException e){
+            System.out.println("❌ Invalid ID. Please enter a number.");
+            scanner.nextLine(); // Clear newline from input buffer
+            return;
+        }
 
         // SQL query to delete place by ID
         String query = "DELETE FROM places WHERE id = ?";
