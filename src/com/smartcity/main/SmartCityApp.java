@@ -77,39 +77,26 @@ public class SmartCityApp {
         // Get and validate username
         System.out.print("Enter username (4-20 alphanumeric characters): ");
         String username = scanner.nextLine();
-        boolean validUsername = false;
 
         //When the username the user chooses is invalid, this activates
         while(!isValidUsername(username)) {
             System.out.println("Invalid username. Please try again.");
             //It allows the user to retry again, and if they're succesful the loop stops
-            try {
-                String nextUserTry = scanner.nextLine();
-                validUsername = true;
-            } catch(InputMismatchException e) {
-                // This message will appear if you still got the input wrong, it informs the user why it's not working
-                System.out.println("You entered an invalid input." + scanner.next() + ", please try again.");
-                scanner.nextLine();
-            }
+            System.out.print("Enter username (4-20 alphanumeric characters): ");
+            username = scanner.nextLine();
+
         }
 
         // Get and validate password BEFORE hitting the database
         System.out.print("Enter password (min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char): ");
         String password = scanner.nextLine();
-        boolean validPassword = false;
 
         //When the password the user chooses is invalid, this activates
         while(!isValidPassword(password)) {
             System.out.println("Invalid password. Please try again.");
             //It allows the user to retry again, and if they're succesful the loop stops
-            try {
-                String nextPassTry = scanner.nextLine();
-                validPassword = true;
-            } catch(InputMismatchException e) {
-                // This message will appear if you still got the input wrong, it informs the user why it's not working
-                System.out.println("You entered an invalid input." + scanner.next() + ", please try again.");
-                scanner.nextLine();
-            }
+            System.out.print("Enter password (min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char): ");
+            password = scanner.nextLine();
         }
 
         // SQL queries
@@ -564,45 +551,29 @@ public class SmartCityApp {
         // Get place name
         System.out.print("Enter place name: ");
         String name = scanner.nextLine();
-        boolean validName = false;
+        //If it's not valid, then the user can try again
 		while (!isValidPlaceName(name)) {
 			System.out.println("❌ Error: Place name cannot be empty.");
-			try{
-                String nextTryName = scanner.nextLine();
-                validName = true;
-            } catch(Exception e){
-                System.out.println("You entered an invalid input." + scanner.nextLine() + "please try again.");
-
-            }
+            name = scanner.nextLine();
 		}
 
         // Get place category
         System.out.print("Enter category (e.g., Hotel, Restaurant, Park): ");
         String category = scanner.nextLine();
-        boolean validCategory = false;
+        //If it's not valid, then the user can try again
 		while (category == null || category.trim().isEmpty()) {
 			System.out.println("❌ Error: Category cannot be empty.");
-			try {
-                String nextTryCategory = scanner.nextLine();
-                validCategory = true;
-            } catch(Exception e) {
-                System.out.println("You entered an invalid input." + scanner.nextLine() + "please try again.");
-            }
+            category = scanner.nextLine();
 		}
 
         // Get place location
         System.out.print("Enter location: ");
         String location = scanner.nextLine();
-        boolean validLocation = false;
+        //If it's not valid, then the user can try again
 		while (!isValidLocation(location)) {
-			System.out.println("❌ Error: Location cannot be empty.");
-            try{
-                String nextTryLocation = scanner.nextLine();
-                validLocation = true;
-            } catch (Exception e) {
-                System.out.println("You entered an invalid input." + scanner.nextLine() + "please try again.");
-            }
-		}
+            System.out.println("❌ Error: Location cannot be empty.");
+            location = scanner.nextLine();
+        }
 
         // Get place description
         System.out.print("Enter description: ");
@@ -708,41 +679,22 @@ public class SmartCityApp {
 			if (newDescription.isEmpty()) newDescription = currentDescription;
 
 			// 🔥 VALIDATION
-             boolean newNameValidation = false;
              while (newName == null || newName.trim().isEmpty()) {
 				System.out.println("❌ Error: Place name cannot be empty.");
-
-                try{
-                    String nextTryNameValidation = scanner.nextLine();
-                    newNameValidation = true;
-                } catch (Exception e) {
-                    System.out.println("You entered an invalid input." +  scanner.nextLine() + "please try again.");
-                }
-
+                System.out.println("Enter new name: ");
+                newName = scanner.nextLine();
 			}
 
-             boolean newLocationValidation = false;
 			while (newLocation == null || newLocation.trim().isEmpty()) {
 				System.out.println("❌ Error: Location cannot be empty.");
-
-                try{
-                    String nextTryLocationValidation = scanner.nextLine();
-                    newLocationValidation = true;
-                } catch (Exception e) {
-                    System.out.println("You entered an invalid input." + scanner.nextLine() + "please try again.");
-                }
+                System.out.println("Enter new location: ");
+                newLocation = scanner.nextLine();
 			}
 
-            boolean newCategoryValidation = false;
 			while (newCategory == null || newCategory.trim().isEmpty()) {
 				System.out.println("❌ Error: Category cannot be empty.");
-
-                try{
-                    String nextTryCategoryValidation = scanner.nextLine();
-                    newCategoryValidation = true;
-                }catch(Exception e) {
-                    System.out.println("You entered an invalid input." + scanner.nextLine() + "please try again.");
-                }
+                System.out.println("Enter new category: ");
+                newCategory = scanner.nextLine();
 			}
 
 			// Single correct update query
