@@ -83,7 +83,6 @@ public class SmartCityApp {
             //It allows the user to retry again, and if they're succesful the loop stops
             System.out.print("Enter username (4-20 alphanumeric characters): ");
             username = scanner.nextLine();
-
         }
 
         // Get and validate password BEFORE hitting the database
@@ -553,6 +552,7 @@ public class SmartCityApp {
         //If it's not valid, then the user can try again
 		while (!isValidPlaceName(name)) {
 			System.out.println("❌ Error: Place name cannot be empty.");
+            System.out.print("Enter place name: ");
             name = scanner.nextLine();
 		}
 
@@ -562,6 +562,7 @@ public class SmartCityApp {
         //If it's not valid, then the user can try again
 		while (category == null || category.trim().isEmpty()) {
 			System.out.println("❌ Error: Category cannot be empty.");
+            System.out.print("Enter category (e.g., Hotel, Restaurant, Park): ");
             category = scanner.nextLine();
 		}
 
@@ -571,6 +572,7 @@ public class SmartCityApp {
         //If it's not valid, then the user can try again
 		while (!isValidLocation(location)) {
             System.out.println("❌ Error: Location cannot be empty.");
+            System.out.print("Enter location: ");
             location = scanner.nextLine();
         }
 
@@ -676,25 +678,6 @@ public class SmartCityApp {
 			if (newCategory.isEmpty()) newCategory = currentCategory;
 			if (newLocation.isEmpty()) newLocation = currentLocation;
 			if (newDescription.isEmpty()) newDescription = currentDescription;
-
-			// 🔥 VALIDATION
-             while (newName == null || newName.trim().isEmpty()) {
-				System.out.println("❌ Error: Place name cannot be empty.");
-                System.out.println("Enter new name: ");
-                newName = scanner.nextLine();
-			}
-
-			while (newLocation == null || newLocation.trim().isEmpty()) {
-				System.out.println("❌ Error: Location cannot be empty.");
-                System.out.println("Enter new location: ");
-                newLocation = scanner.nextLine();
-			}
-
-			while (newCategory == null || newCategory.trim().isEmpty()) {
-				System.out.println("❌ Error: Category cannot be empty.");
-                System.out.println("Enter new category: ");
-                newCategory = scanner.nextLine();
-			}
 
 			// Single correct update query
 			PreparedStatement updatePstmt = connection.prepareStatement(updateQuery);
