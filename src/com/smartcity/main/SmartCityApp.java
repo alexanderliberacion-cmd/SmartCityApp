@@ -160,7 +160,7 @@ public class SmartCityApp {
 
         } catch (SQLException e) {
             System.out.println("❌ Error: Failed to register user.");
-            System.out.println("Error message: " + e.getMessage());
+            System.out.println("   Error message: " + e.getMessage());
         }
     }
 
@@ -220,7 +220,7 @@ public class SmartCityApp {
 
         } catch (SQLException e) {
             System.out.println("❌ Error: Failed to login user.");
-            System.out.println("Error message: " + e.getMessage());
+            System.out.println("   Error message: " + e.getMessage());
         }
     }
 
@@ -343,7 +343,7 @@ public class SmartCityApp {
 
             // Handle case when no places found
             if (!hasResults) {
-                System.out.println("[!] No places available at the moment");
+                System.out.println("[!] No places available at the moment.");
             }
 
             System.out.println("\n" + "-".repeat(50));
@@ -436,7 +436,7 @@ public class SmartCityApp {
 
             // Handle no results found
             if (!found) {
-                System.out.println("[!] No results found in category: '"  + searchCategory + "'");
+                System.out.println("[!] No places found in category: '" + searchCategory + "'");
             }
 
             System.out.println("-".repeat(50));
@@ -496,7 +496,7 @@ public class SmartCityApp {
 
             // Handle no results found
             if (!found) {
-                System.out.println("[!] No results found in location: '" + searchLocation + "'");
+                System.out.println("[!] No places found in location: '" + searchLocation + "'");
             }
 
             System.out.println("-".repeat(50));
@@ -672,7 +672,7 @@ public class SmartCityApp {
 			ResultSet rs = selectPstmt.executeQuery();
 
 			if (!rs.next()) {
-				System.out.println("[!] No results found for ID '" +  placeId + "'");
+				System.out.println("[!] No results for ID '" +  placeId + "'");
 				return;
 			}
 
@@ -773,7 +773,7 @@ public class SmartCityApp {
             if (rowsAffected > 0) {
                 System.out.println("✅ Success! Place with ID " + placeId + " has been deleted.");
             } else {
-                System.out.println("[!] No results found for ID '" +  placeId + "'");
+                System.out.println("[!] No results for ID '" +  placeId + "'");
             }
 
             // Close resources
