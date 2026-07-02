@@ -79,14 +79,17 @@ public class SmartCityApp {
 
     // Validates username: 4-20 characters, alphanumeric only
     private static boolean isValidUsername(String username) {
-        if (username == null || username.isEmpty()) return false;
+        if (username == null || username.isEmpty())
+            return false;
         String regex = "^[a-zA-Z0-9]{4,20}$";
         return username.matches(regex);
     }
 
-    // Validates password: Minimum 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char
+    // Validates password: Minimum 8 chars, 1 uppercase, 1 lowercase, 1 number, 1
+    // special char
     private static boolean isValidPassword(String password) {
-        if (password == null || password.isEmpty()) return false;
+        if (password == null || password.isEmpty())
+            return false;
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
         return password.matches(regex);
     }
@@ -99,10 +102,10 @@ public class SmartCityApp {
         System.out.print("Enter username (4-20 alphanumeric characters): ");
         String username = scanner.nextLine();
 
-        //When the username the user chooses is invalid, this activates
-        while(!isValidUsername(username)) {
+        // When the username the user chooses is invalid, this activates
+        while (!isValidUsername(username)) {
             System.out.println("Invalid username. Please try again.");
-            //It allows the user to retry again, and if they're succesful the loop stops
+            // It allows the user to retry again, and if they're successful the loop stops
             System.out.print("Enter username (4-20 alphanumeric characters): ");
             username = scanner.nextLine();
         }
@@ -111,10 +114,14 @@ public class SmartCityApp {
         System.out.print("Enter password (min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char): ");
         String password = scanner.nextLine();
 
-        //When the password the user chooses is invalid, this activates
-        while(!isValidPassword(password)) {
-            System.out.println("Invalid password. Please try again.");
-            //It allows the user to retry again, and if they're succesful the loop stops
+        // When the password the user chooses is invalid, this activates
+        while (password.length() < 8 || !isValidPassword(password)) {
+            if (password.length() < 8) {
+                System.out.println("Password is too short. Minimum 8 characters required.");
+            } else {
+                System.out.println("Invalid password. Please try again.");
+            }
+            // It allows the user to retry again, and if they're succesful the loop stops
             System.out.print("Enter password (min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 special char): ");
             password = scanner.nextLine();
         }
@@ -490,11 +497,11 @@ public class SmartCityApp {
 
         // Get place ID
         System.out.print("Enter place ID: ");
-        int id ;
-        try{
+        int id;
+        try {
             id = scanner.nextInt();
             scanner.nextLine();
-        }catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.out.println("❌ Invalid ID. Please enter a number.");
             scanner.nextLine(); // Clear newline from input buffer
             return;
@@ -503,7 +510,8 @@ public class SmartCityApp {
         // Get place name
         System.out.print("Enter place name: ");
         String name = scanner.nextLine();
-        //If it's not valid, then the user can try again
+
+        // If it's not valid, then the user can try again
         while (!isValidPlaceName(name)) {
             System.out.println("❌ Error: Place name cannot be empty.");
             System.out.print("Enter place name: ");
@@ -513,7 +521,8 @@ public class SmartCityApp {
         // Get place category
         System.out.print("Enter category (e.g., Hotel, Restaurant, Park): ");
         String category = scanner.nextLine();
-        //If it's not valid, then the user can try again
+
+        // If it's not valid, then the user can try again
         while (category == null || category.trim().isEmpty()) {
             System.out.println("❌ Error: Category cannot be empty.");
             System.out.print("Enter category (e.g., Hotel, Restaurant, Park): ");
@@ -523,7 +532,8 @@ public class SmartCityApp {
         // Get place location
         System.out.print("Enter location: ");
         String location = scanner.nextLine();
-        //If it's not valid, then the user can try again
+
+        // If it's not valid, then the user can try again
         while (!isValidLocation(location)) {
             System.out.println("❌ Error: Location cannot be empty.");
             System.out.print("Enter location: ");
@@ -567,11 +577,11 @@ public class SmartCityApp {
         System.out.println("\n--- Update Place ---");
 
         System.out.print("Enter place ID to update: ");
-        int placeId ;
+        int placeId;
         try {
             placeId = scanner.nextInt();
             scanner.nextLine();
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.out.println("❌ Invalid ID. Please enter a number.");
             scanner.nextLine();
             return;
@@ -582,7 +592,13 @@ public class SmartCityApp {
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement selectPstmt = connection.prepareStatement(selectQuery);
-             PreparedStatement updatePstmt = connection.prepareStatement(updateQuery)){
+             PreparedStatement updatePstmt = connection.prepareStatement(updateQuery)) {
+
+       
+            if (connection == null) {
+                System.out.println("❌ Failed to connect to database.");
+                return;
+            }
 
             // Fetch existing place
             selectPstmt.setInt(1, placeId);
@@ -625,6 +641,17 @@ public class SmartCityApp {
             if (newDescription.isEmpty()) newDescription = currentDescription;
 
             // Single correct update query
+            if (newName.isEmpty())
+                newName = currentName;
+            if (newCategory.isEmpty())
+                newCategory = currentCategory;
+            if (newLocation.isEmpty())
+                newLocation = currentLocation;
+            if (newDescription.isEmpty())
+                newDescription = currentDescription;
+
+         
+            // Single correct update query
             updatePstmt.setString(1, newName);
             updatePstmt.setString(2, newCategory);
             updatePstmt.setString(3, newLocation);
@@ -638,7 +665,7 @@ public class SmartCityApp {
             } else {
                 System.out.println("❌ Error: Update failed.");
             }
-
+          
         } catch (SQLException e) {
             System.out.println("❌ Error: Failed to update place.");
             System.out.println("   Error message: " + e.getMessage());
@@ -655,7 +682,7 @@ public class SmartCityApp {
         try {
             placeId = scanner.nextInt();
             scanner.nextLine();
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.out.println("❌ Invalid ID. Please enter a number.");
             scanner.nextLine(); // Clear newline from input buffer
             return;
@@ -697,3 +724,5 @@ public class SmartCityApp {
         System.out.flush();
     }
 }
+
+   
