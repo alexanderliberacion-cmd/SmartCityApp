@@ -209,14 +209,21 @@ A huge shoutout to everyone who has contributed to this project! 🙌
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/HemendraRoy">
+                    <img src="https://avatars.githubusercontent.com/u/158675218?v=4" width="100;" alt="HemendraRoy"/>
+                    <br />
+                    <sub><b>HemendraRoy</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
+            <td align="center">
                 <a href="https://github.com/JhansiOruganti-43">
                     <img src="https://avatars.githubusercontent.com/u/155613006?v=4" width="100;" alt="JhansiOruganti-43"/>
                     <br />
                     <sub><b>Jhansi Oruganti</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/Julito-Dev">
                     <img src="https://avatars.githubusercontent.com/u/210993135?v=4" width="100;" alt="Julito-Dev"/>
